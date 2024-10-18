@@ -9,18 +9,15 @@ if (isset($_POST['insertNewSoftwareEngBtn'])) {
     $education = $_POST['Education'];
     $portfolioUrl = $_POST['Portfolio'];
 
-    if(empty($fullName) || empty($email) || empty($techStack) || empty($yearsExp) || empty($education) || empty($portfolioUrl)) {
+    if (empty($fullName) || empty($email) || empty($techStack) || empty($yearsExp) || empty($education) || empty($portfolioUrl)) {
         echo "All fields are required.";
         exit;
     }
 
-    $database = new Database();
-    $db = $database->getConnection();
-
     $query = "INSERT INTO software_engineers (fullname, email, tech_stack, years_of_exp, highest_education, portfolio_url) 
               VALUES (:fullname, :email, :tech_stack, :years_of_exp, :highest_education, :portfolio_url)";
 
-    $stmt = $db->prepare($query);
+    $stmt = $pdo->prepare($query);
 
     $stmt->bindParam(':fullname', $fullName);
     $stmt->bindParam(':email', $email);
